@@ -1,17 +1,14 @@
-<!-- 管理者側の枠 -->
+<!-- 顧客側の枠 -->
   <header>
     <% if admin_signed_in? %>
+    <li>
+      <%= link_to "マイページ" %>
+    </li>
     <li>
       <%= link_to "商品一覧" %>
     </li>
     <li>
-      <%= link_to "会員一覧" %>
-    </li>
-    <li>
-        <%= link_to "注文履歴一覧" %>
-    </li>
-    <li>
-        <%= link_to "ジャンル一覧" %>
+        <%= link_to "カート" %>
     </li>
     <li>
         <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
