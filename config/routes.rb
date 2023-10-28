@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  resources :admin
+  resources :customers
   get "/admin" => "admin/homes#top"
   get "/public" => "public/homes#top"
+  get "/public/mypage" => "public/customers#show"
   
   # 管理者用
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
@@ -13,4 +16,6 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
+
 end

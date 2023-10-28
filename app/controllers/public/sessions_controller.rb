@@ -37,7 +37,7 @@ class Public::SessionsController < Devise::SessionsController
 
   # 顧客ログアウト後のリダイレクト先
   def after_sign_out_path_for(resource_or_scope)
-    new_public_session_path #任意パスに変更
+    new_customer_session_path #任意パスに変更
   end
   
   
