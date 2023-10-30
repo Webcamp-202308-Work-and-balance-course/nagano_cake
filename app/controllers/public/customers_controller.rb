@@ -4,6 +4,16 @@ class Public::CustomersController < ApplicationController
         @customer = Customer.find(current_customer.id)
     end 
     
+    def edit
+        @customer = Customer.find(current_customer.id)
+    end     
+    
+    def update
+        #@customer = Customer.find(params[:id])
+        @customer = Customer.find(current_customer.id)
+        @customer.update(@customer_params)
+        redirect_to customers_mypage_path(@customer.id)  
+    end
     
   private
     def public_params
