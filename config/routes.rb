@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   resources :admin
-  resources :customers
+  resources :public
   get "/admin" => "admin/homes#top"
   get "/public" => "public/homes#top"
-  get "/public/mypage" => "public/customers#show"
+  get "/customers/mypage" => "public/customers#show"
+  get "/custormers/information/edit" => "public/customers#edit"
+  patch '/customers/information', to: 'public/customers#update', as: 'update_customers_information'
+  get "/customers/confirm" => "public/customers#confirm"
+  patch "/customers/withdraw" => "public/customers#withdraw", as: 'customers_withdraw'
+
   
   # 管理者用
   devise_for :admin, skip: [:registrations, :passwords], controllers: {

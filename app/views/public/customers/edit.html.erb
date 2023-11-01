@@ -1,0 +1,25 @@
+<!-- マイページ編集 -->
+<%= render 'public/homes/public_layouts' %>
+
+<h2>マイページ編集</h2>
+<h2>会員情報編集</h2>
+<%= form_with model: @customer, local: true, url: update_customers_information_path(@customer), method: :patch do |f| %>
+    <p>氏名</p>
+    <%= f.text_field :first_name %> <%= f.text_field :last_name %>
+    <p>カナ</p>
+    <%= f.text_field :first_name_kana %> <%= f.text_field :last_name_kana %>
+    <p>郵便番号</p>
+    <%= f.text_field :postal_code %>
+    <p>住所</p>
+    <%= f.text_field :address %>
+    <p>電話番号</p>
+    <%= f.text_field :telephone_number %>
+    <p>メールアドレス</p>
+    <%= f.text_field :email %>
+
+
+<%= f.submit "Update" %>
+<%= link_to "編集内容を保存", customers_mypage_path %>
+
+<%= link_to "退会する", customers_confirm_path %>
+<% end %>
