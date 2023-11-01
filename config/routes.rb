@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get "/public" => "public/homes#top"
   get "/customers/mypage" => "public/customers#show"
   get "/custormers/information/edit" => "public/customers#edit"
-  patch '/customers/information', to: 'public/customer#update', as: 'update_customers_information'
+  patch '/customers/information', to: 'public/customers#update', as: 'update_customers_information'
+  get "/customers/confirm" => "public/customers#confirm"
+  patch "/customers/withdraw" => "public/customers#withdraw", as: 'customers_withdraw'
 
   
   # 管理者用
