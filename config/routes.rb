@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :admin
+  #resources :admin
   resources :public
   get "/admin" => "admin/homes#top"
   get "/public" => "public/homes#top"
@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   patch '/customers/information', to: 'public/customers#update', as: 'update_customers_information'
   get "/customers/confirm" => "public/customers#confirm"
   patch "/customers/withdraw" => "public/customers#withdraw", as: 'customers_withdraw'
+
+  
 
   
   # 管理者用
@@ -20,6 +22,16 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+  
+  # 管理者側のルーティング設定
+  namespace :admin do
+    resources :items
+  end 
+  
+    # 会員側のルーティング設定
+  scope module: :public do
+    resources :items, only: [:index, :show]
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
 

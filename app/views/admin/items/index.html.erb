@@ -1,0 +1,30 @@
+<!-- 商品一覧画面 -->
+<%= render 'admin/homes/admin_layouts' %>
+
+
+<h2>商品一覧</h2>
+<%= link_to "➕新装品追加", new_admin_item_path %></br>
+<% @items.each do |item| %>
+
+    <p>商品画像</p><!-- accept: "image/*"は画像ファイルしか投稿できないようにしている -->
+    
+      <% if item.item_image.attached? %>
+        <%= image_tag item.item_image, size: "200x200" %>
+      <% else %>
+        <%= image_tag 'no_image_square', size: "200x200" %>
+      <% end %>
+    <p>商品名</p>
+    <%= link_to item.name, admin_item_path(item.id) %>
+    <p>商品説明</p>
+    <%= item.introduction %>
+    <!--<p>ジャンル</p>-->
+    <p>税抜価格</p>
+    <%= item.excluding_tax %>
+    <!--<p>販売ステータス</p>-->
+    <%= item.is_sales_status %>
+    
+    <p>----------------------------------------------</p>
+
+    
+    
+<% end %>
