@@ -1,5 +1,7 @@
 class Item < ApplicationRecord
- has_one_attached :item_image   
+ has_one_attached :item_image 
+ has_many :cart_items
+ validates :excluding_tax, presence: true
  
     def new
         @item_image = Item.new

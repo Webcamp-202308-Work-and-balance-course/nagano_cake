@@ -1,0 +1,24 @@
+<!-- カート内商品一覧 -->
+<%= render 'public/homes/public_layouts' %>
+<h1>👪</h1>
+
+<h2>ショッピングカート</h2>
+<% @cart_items.each do |item| %>
+
+    <p>商品名</p>
+    <%= link_to item.name, cart_item_path(item.id) %>
+    <p>単価</p>
+    <%= item.excluding_tax %>
+    <!--<p>ジャンル</p>-->
+    <p>数量</p>
+    <%= item.amount %>
+    <p>小計</p>
+    <!--<p>販売ステータス</p>-->
+    <%= item.excluding_tax %>*<%= item.amount %>
+    
+    <p>----------------------------------------------</p>
+
+    
+    
+<% end %>
+
