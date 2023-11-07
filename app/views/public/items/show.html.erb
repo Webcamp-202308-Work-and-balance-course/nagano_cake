@@ -18,9 +18,14 @@
     <!--<p>ジャンル</p>-->
     <p>税抜価格</p>
     <%= @item.excluding_tax %>
-    <!--<p>販売ステータス</p>-->
-    <%= @item.is_sales_status %>
     
-    </br><%= link_to "編集する", edit_admin_item_path(@item.id) %>
+    <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+      注文個数
+      <%= f.select :amount, (1..10).to_a, prompt: "個数を選択してください" %>個
+      <%= f.hidden_field :item_id, :value => @item.id %>
+      </br><%= f.submit "カートに入れる" %>
+    <% end %>
+    
+   
 
     

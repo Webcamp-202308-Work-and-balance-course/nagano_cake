@@ -31,7 +31,12 @@ Rails.application.routes.draw do
   
     # 会員側のルーティング設定
   scope module: :public do
+    get '/' => 'homes#top'
+    get '/about' => 'homes#about'
     resources :items, only: [:index, :show]
+    delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
+    resources :cart_items, only: [:index, :create, :update, :destroy]
+    
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
