@@ -3,16 +3,11 @@ class Item < ApplicationRecord
  has_many :cart_items
  validates :excluding_tax, presence: true
  
-    def new
-        @item_image = Item.new
-        @item = Item.new  
-    end 
-    
-    
-private
-    def item_params
-        params.require(:items).permit(:title, :body, :item_image)  
-    end    
+ # 消費税を求めるメソッド
+def with_tax_price
+  (excluding_tax * 1.08).floor
+end
+ 
     
         
     

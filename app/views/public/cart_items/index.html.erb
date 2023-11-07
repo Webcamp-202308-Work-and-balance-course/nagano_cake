@@ -2,23 +2,61 @@
 <%= render 'public/homes/public_layouts' %>
 <h1>👪</h1>
 
+<% total_amount_with_tax = 0 %>
 <h2>ショッピングカート</h2>
+<%= notice %>
+<%= link_to 'カートを空にする', cart_items_destroy_all_path, method: :delete, data: {confirm: '本当にカートを空にしますか？'}, class: 'btn btn-danger' %>
+<%= link_to "買い物を続ける", items_path %>
+
 <% @cart_items.each do |item| %>
 
     <p>商品名</p>
-    <%= link_to item.name, cart_item_path(item.id) %>
+    <%= link_to item.item.name, cart_item_path(item.id) %>
     <p>単価</p>
-    <%= item.excluding_tax %>
+    <%= number_with_delimiter(item.item.excluding_tax) %>円
     <!--<p>ジャンル</p>-->
     <p>数量</p>
-    <%= item.amount %>
+    <%= form_for item do |f| %>
+        <%= f.select :amount, (1..10).to_a, { prompt: "個数を選択してください" } %>個
+        <%= f.submit "変更", class: "btn btn-success" %>
+    <% end %>
     <p>小計</p>
+    <% subtotal = item.item.excluding_tax * item.amount %>
+    <%= number_with_delimiter(subtotal) %>円
+    <p>小計（税込）</p>
+    <% subtotal_with_tax = (subtotal * 1.08).floor %>
+    <%= number_with_delimiter(subtotal_with_tax) %>円
+        
     <!--<p>販売ステータス</p>-->
-    <%= item.excluding_tax %>*<%= item.amount %>
-    
-    <p>----------------------------------------------</p>
+     
+    <%= link_to "削除", cart_item_path(item.id), method: :delete, data: {confirm: '本当に削除しますか？'}, class: 'btn btn-danger' %>
+   
 
-    
+    <p>----------------------------------------------</p>
+    <!-- 左辺の変数に右辺の値を加えて、その結果を左辺の変数に再代入 -->
+    <% total_amount_with_tax += subtotal_with_tax %>    
     
 <% end %>
 
+<p>税込み合計金額</p>
+<%= number_with_delimiter(total_amount_with_tax) %>円
+
+
+<table> 
+  <thead>
+    <th>単価(税込)</th>
+    <th>小計</th>
+  </thead>
+  <tbody>
+  <% @cart_items.each do |cart_item| %>
+    <tr>
+      <!--<td><%= (cart_item.item.excluding_tax * 1.08).floor %></td>  下はモデルに定義後短縮可能-->
+      <td><%= cart_item.item.with_tax_price%></td>
+     <!-- <td><%= (cart_item.item.excluding_tax  * 1.08).floor * cart_item.amount %></td>　下はモデルに定義後短縮可能-->
+      <td><%= cart_item.subtotal%></td>
+      
+ 
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -22,6 +22,7 @@
     <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
       注文個数
       <%= f.select :amount, (1..10).to_a, prompt: "個数を選択してください" %>個
+      <%= f.hidden_field :item_id, :value => @item.id %>
       </br><%= f.submit "カートに入れる" %>
     <% end %>
     
