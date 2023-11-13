@@ -1,0 +1,29 @@
+<!-- 注文情報入力 -->
+<%= render 'public/homes/public_layouts' %>
+<h1>👪</h1>
+<h2>注文情報確認</h2>
+<% @cart_items.each do |cart_item| %>
+  <p>商品名</p>
+  <%= cart_item.name %>
+  <p>単価(税込)</p>
+  <%= cart_item.excluding_tax %>
+  <p>数量</p>
+  <%= cart_item.amount %>
+  <p>小計</p>
+  <% subtotal = cart_item.excluding_tax * cart_item.amount %>
+  <%= subtotal %>
+
+  <p>送料</p>
+  800
+  <p>商品合計</p>
+  <% subtotal_with_tax = (subtotal * 1.08).floor %>
+  <p>請求金額</p>
+  <%= number_with_delimiter(subtotal_with_tax) %>円
+
+  <p>支払方法</p>
+  <%= @order.payment_method %>
+  <p>お届け先</p>
+  <%= @order.address %>
+
+  <%= link_to "注文を確定する", orders_thanks_path, class: 'btn btn-success' %>
+<% end %>
