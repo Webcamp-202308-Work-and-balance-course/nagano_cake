@@ -6,6 +6,8 @@ class Public::OrdersController < ApplicationController
     end 
     
     def confirm
+        @cart_item = CartItem.find(current_customer.id)
+        @order = Order.find(current_customer.id)
     end 
     
     def thanks
