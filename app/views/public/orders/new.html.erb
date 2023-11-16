@@ -2,8 +2,9 @@
 <%= render 'public/homes/public_layouts' %>
 <h1>👪</h1>
 <h2>注文情報入力</h2>
-<%= form_with model: @order, url: orders_path, method: :post do |f| %>
+<%= form_with model: @order, url: orders_confirm_path, method: :post do |f| %>
 支払い方法</br>
+
 <%= f.radio_button :payment_method, "credit_card" %>
 <%= f.label :payment_method_credit_card, "クレジットカード" %></br>
 <%= f.radio_button :payment_method, "transfer" %>
@@ -24,6 +25,7 @@
 住所：<%= f.text_field :shopping_address %></br>
 宛名：<%= f.text_field :shopping_name %>様
 
-</br><%= link_to "確認画面へ進む", orders_confirm_path, class: 'btn btn-primary' %>
+</br><%= f.submit "確認画面へ進む", class: 'btn btn-primary' %>
+
 
 <% end %>

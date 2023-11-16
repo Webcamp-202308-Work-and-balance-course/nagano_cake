@@ -6,8 +6,21 @@ class Public::OrdersController < ApplicationController
     end 
     
     def confirm
-        @cart_item = CartItem.find(current_customer.id)
-        @order = Order.find(current_customer.id)
+      @order = Order.new(order_params)
+      @order = Order.new(order_params)
+      @order.postal_code = current_customer.postal_code
+      @order.address = current_customer.address
+      @order.name = current_customer.first_name + current_customer.last_name
+      
+      
+      
+      
+      
+      #binding.pry #デバッグ用 Gem である「pry-byebug」を用いて支払い方法のデータが@order に格納されているかを確認する
+      #@order.postal_code = current_customer.shopping_postal_code
+      #@order.address = current_customer.shopping_address
+      #@order.name = current_customer.shopping_name
+      # @order.name = current_customer.first_name + current_customer.last_name 
     end 
     
     def thanks
@@ -21,4 +34,10 @@ class Public::OrdersController < ApplicationController
     
     def show
     end
+    
+    private
+    def order_params
+      params.require(:order).permit(:payment_method, :address_id, :shopping_postal_code, :shopping_address, :shopping_name)
+    end
+
 end
