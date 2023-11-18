@@ -1,32 +1,34 @@
 class Public::OrdersController < ApplicationController
+  before_action :set_customer
     def new
         @order = Order.new  
-        @customer = Customer.find(current_customer.id)
-        
+        @customer = current_customer
     end 
     
     def confirm
-      @order = Order.new(order_params)
-      @order = Order.new(order_params)
-      @order.postal_code = current_customer.postal_code
-      @order.address = current_customer.address
-      @order.name = current_customer.first_name + current_customer.last_name
-      
-      
-      
-      
-      
       #binding.pry #デバッグ用 Gem である「pry-byebug」を用いて支払い方法のデータが@order に格納されているかを確認する
-      #@order.postal_code = current_customer.shopping_postal_code
-      #@order.address = current_customer.shopping_address
-      #@order.name = current_customer.shopping_name
-      # @order.name = current_customer.first_name + current_customer.last_name 
-    end 
+      if params[:order][:address_method] == "mine"
+        # 自分の住所
+        @order = Order.new(order_params)
+        @order.shopping_postal_code = @customer.postal_code
+        @order.shopping_address = @customer.address
+        @order.shopping_name = @customer.first_name + @customer.last_name
+      elsif params[:order][:address_method] == "other"
+        # 入力したお届け先
+        @order = Order.new(order_params)
+      end
+      
+      @cart_items = current_customer.cart_items
+    end
+
     
     def thanks
     end 
     
     def create
+      @order = Order.new(order_params)
+      @order.save
+      redirect_to order_thanks_path
     end 
     
     def index
@@ -38,6 +40,10 @@ class Public::OrdersController < ApplicationController
     private
     def order_params
       params.require(:order).permit(:payment_method, :address_id, :shopping_postal_code, :shopping_address, :shopping_name)
+    end
+    
+    def set_customer
+      @customer = current_customer
     end
 
 end

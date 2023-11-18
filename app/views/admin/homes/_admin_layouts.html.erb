@@ -1,6 +1,7 @@
 <!-- 管理者側の枠 -->
   <header>
     <% if admin_signed_in? %>
+    <h1>👤</h1>
     <li>
       <%= link_to "商品一覧", admin_items_path %>
     </li>
@@ -18,7 +19,7 @@
     </li>
       
     <% else %>
-      
+    <h1>👤</h1>
     <li>
       <%= link_to "About" %>
     </li>

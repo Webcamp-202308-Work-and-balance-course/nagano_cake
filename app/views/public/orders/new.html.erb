@@ -11,16 +11,16 @@
 <%= f.label :payment_method_transfer, "銀行振込" %></br>
 
 お届け先</br>
-<%= f.radio_button :shopping_postal_code, "" %>
-<%= f.label :address, "ご自身の住所" %>
+<%= f.radio_button :address_method, "mine" %>
+<%= f.label :address_method_mine, "ご自身の住所" %>
 <%= f.select :address_id, options_from_collection_for_select(ShoppingAddress.all, :id, :address_display) %></br>
 〒<%= @customer.postal_code %>
 <%= @customer.address %></br>
 <%= @customer.first_name %><%= @customer.last_name %>様
 
 
-</br><%= f.radio_button :shopping_postal_code, "" %>
-<%= f.label :address, "新しいお届け先" %></br>
+</br><%= f.radio_button :address_method, "other" %>
+<%= f.label :address_method_other, "新しいお届け先" %></br>
 郵便番号(ハイフンなし)：〒<%= f.text_field :shopping_postal_code %></br>
 住所：<%= f.text_field :shopping_address %></br>
 宛名：<%= f.text_field :shopping_name %>様

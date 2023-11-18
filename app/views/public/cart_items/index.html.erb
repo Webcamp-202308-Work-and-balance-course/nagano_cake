@@ -12,7 +12,8 @@
 <% @cart_items.each do |item| %>
 
     <p>商品名</p>
-    <%= link_to item.item.name, cart_item_path(item.id) %>
+    <%= link_to item.item.name, item_path(item.item.id) %>
+
     <p>単価</p>
     <%= number_with_delimiter(item.item.excluding_tax) %>円
     <!--<p>ジャンル</p>-->

@@ -2,28 +2,57 @@
 <%= render 'public/homes/public_layouts' %>
 <h1>👪</h1>
 <h2>注文情報確認</h2>
-<% @cart_items.each do |cart_item| %>
-  <p>商品名</p>
-  <%= cart_item.name %>
-  <p>単価(税込)</p>
-  <%= cart_item.excluding_tax %>
-  <p>数量</p>
-  <%= cart_item.amount %>
-  <p>小計</p>
-  <% subtotal = cart_item.excluding_tax * cart_item.amount %>
-  <%= subtotal %>
 
-  <p>送料</p>
-  800
-  <p>商品合計</p>
-  <% subtotal_with_tax = (subtotal * 1.08).floor %>
-  <p>請求金額</p>
-  <%= number_with_delimiter(subtotal_with_tax) %>円
+<table>
+  <thead>
+    <th>　商品名　</th>
+    <th>　単価(税込)　</th>
+    <th>　数量　</th>
+    <th>　小計　</th>
+  </thead>
+  <tbody>
+    <tr><% @cart_items.each do |cart_item| %>
+      <td>　<%= cart_item.item.name %>　</td>
+      <td>　<%= number_with_delimiter(cart_item.item.excluding_tax) %>　</td>
+      <td>　<%= cart_item.amount %>　</td>
+      <td>　<% subtotal = cart_item.item.excluding_tax * cart_item.amount %>
+      <%= number_with_delimiter(subtotal) %>　</td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
 
-  <p>支払方法</p>
-  <%= @order.payment_method %>
-  <p>お届け先</p>
-  <%= @order.address %>
+<table>
+  <tbody>
+    <tr>
+      <th> 送料 </th>
+      <td> <%= postage = 300 %> <!--固定--></td>
+    </tr>
+    <tr>
+      <th> 商品合計 </th><!--小計の合計-->
+      <td><% subtotal = @cart_items.sum { |item| item.item.excluding_tax * item.amount } %>
+          <% subtotal_with_tax = (subtotal * 1.08).floor %>
+          <%= number_with_delimiter(subtotal_with_tax) %> </td>
+    </tr>
+    <tr>
+      <th> 請求金額 </th>
+      <td> <%= number_with_delimiter(subtotal_with_tax + postage) %> </td>
+    </tr>
+  </tbody>
+</table>
 
-  <%= link_to "注文を確定する", orders_thanks_path, class: 'btn btn-success' %>
-<% end %>
+
+<table>
+  <tr>
+    <th>支払方法</th>
+    <td><%= @order.payment_method %></td>
+  </tr>
+  <tr>
+    <th>お届け先</th>
+    <td>〒<%= @order.shopping_postal_code %>
+    <%= @order.shopping_address %></br>
+    <%= @order.shopping_name %>様</br></td>
+  </tr>
+</table>
+
+  <%= link_to "注文を確定する", orders_path, method: :post, class: 'btn btn-success' %>

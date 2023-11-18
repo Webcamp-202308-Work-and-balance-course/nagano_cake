@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
-    enum payment_method: { credit_card: 0, transfer: 1 }
+    enum payment_method: { credit_card: 0, transfer: 1 } #支払い方法
+    enum address_method: { mine: 0, other: 1 } #お届け先住所
     
     belongs_to :customer
     has_many :order_items
