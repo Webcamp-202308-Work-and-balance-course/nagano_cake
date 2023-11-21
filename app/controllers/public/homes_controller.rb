@@ -1,7 +1,7 @@
 class Public::HomesController < ApplicationController
     
     def top
-        @items = Item.all.limit(4)
+        @items = Item.all.last(4)
     end 
  
      def about

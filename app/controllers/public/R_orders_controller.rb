@@ -3,7 +3,6 @@ class Public::OrdersController < ApplicationController
     def new
         @order = Order.new  
         @customer = current_customer
-        @cart_items = current_customer.cart_items
     end 
     
     def confirm
@@ -20,7 +19,6 @@ class Public::OrdersController < ApplicationController
       end
       
       @cart_items = current_customer.cart_items
-      
     end
 
     
@@ -28,28 +26,14 @@ class Public::OrdersController < ApplicationController
     end 
     
     def create
-        @order = Order.new(order_params)
-        @cart_items = current_customer.cart_items
-        @customer = current_customer
-        @order.customer_id = @customer.id
-        if @order.save!
-          #pry-byebug
-          @cart_items.each do |cart_item|
-            @order_product = OrderedProduct.new
-            @order_product.item_id = cart_item.item_id
-            @order_product.order_id = @order.id
-            @order_product.tax_included = cart_item.subtotal_with_tax
-            @order_product.amount = cart_item.amount
-          end
-        end   
-        @order_product.save!
-        
-        redirect_to orders_thanks_path
+      
+      @order = Order.new(order_params)
+      binding.pry
+      @order.save
+      redirect_to order_thanks_path
     end 
     
     def index
-        @orders = current_customer.orders
-        @order_products = OrderedProduct.all
     end 
     
     def show
@@ -57,7 +41,7 @@ class Public::OrdersController < ApplicationController
     
     private
     def order_params
-      params.require(:order).permit(:payment_method, :address_method, :address_id, :shopping_postal_code, :shopping_address, :shopping_name, :postage, :billing_amount, :status)
+      params.require(:order).permit(:payment_method, :address_method, :address_id, :shopping_postal_code, :shopping_address, :shopping_name)
     end
     
     def set_customer

@@ -1,0 +1,22 @@
+<!-- 注文履歴画面 -->
+<%= render 'public/homes/public_layouts' %>
+<h1>👪</h1>
+<h2>注文履歴一覧</h2>
+
+<% @orders.each do |order| %>
+
+
+    注文日：<%= order.created_at %></br>
+    配送先：<%= order.shopping_postal_code %>
+    <%= order.shopping_address %>
+    <%= order.shopping_name %></br>
+    注文商品：
+<% @order_products.each do |order_product| %>
+    <%= order_product.item.name %></br>
+<% end %>
+    支払い金額：<%= number_with_delimiter(order.billing_amount) %></br>
+    ステータス：<%= order.status %></br>
+    注文詳細：<%= link_to "表示する", order_path(:id), class: "btn btn-primary" %>
+
+
+<% end %>

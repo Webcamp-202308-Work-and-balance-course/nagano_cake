@@ -101,20 +101,20 @@ ActiveRecord::Schema.define(version: 2023_11_01_110558) do
     t.integer "order_id", null: false
     t.integer "tax_included", null: false
     t.integer "amount", null: false
-    t.integer "production_status", null: false
+    t.integer "production_status", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "customer", null: false
+    t.integer "customer_id", null: false
     t.integer "postage", null: false
     t.integer "billing_amount", null: false
     t.string "shopping_postal_code", null: false
     t.string "shopping_address", null: false
     t.string "shopping_name", null: false
     t.integer "payment_method", null: false
-    t.integer "status", null: false
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
