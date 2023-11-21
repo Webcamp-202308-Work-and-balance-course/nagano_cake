@@ -6,10 +6,10 @@ class Order < ApplicationRecord
     has_many :order_items
     
     enum status: {
-     "入金待ち":0, 
-     "入金確認":1, 
-     "製作中":2, 
-     "発送準備中":3, 
-     "発送済み":4
+     waiting_payment: 0, #入金待ち
+     payment_confirmation: 1, #入金確認
+     in_production: 2, #製作中
+     preparing_to_ship: 3, #発送準備中
+     sent: 4 #発送済み
   }
 end

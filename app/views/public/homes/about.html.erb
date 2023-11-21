@@ -1,9 +1,19 @@
 <%= render 'public/homes/public_layouts' %>
 
-<h1>About</h1>
+<style>
+    .about-message {
+        text-align: center;
+    }
+</style>
 
-<p>ながのCAKEは全国発送可能なケーキ屋さんです。</br>
-お子様からお年寄りの方までお召し上がりいただけるよう、</br>
-様々なバリエーションをご用意しております。</br>
-また、全国へ発送可能ですので、「いつ」でも「どこ」でもご注文いただけます。</br>
-ぜひご注文ください。</p>
+<div class="about-message">
+    <h1>About</h1>
+    
+    <p>ながのCAKEは全国発送可能なケーキ屋さんです。</br>
+    お子様からお年寄りの方までお召し上がりいただけるよう、</br>
+    様々なバリエーションをご用意しております。</br>
+    また、全国へ発送可能ですので、「いつ」でも「どこ」でもご注文いただけます。</br>
+    ぜひご注文ください。</p>
+    
+    <%= image_tag asset_path('cake_shop.jpeg') %>
+</div>

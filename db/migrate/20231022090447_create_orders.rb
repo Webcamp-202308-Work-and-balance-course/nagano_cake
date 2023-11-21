@@ -8,7 +8,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.string :shopping_address, null: false #配送先住所
       t.string :shopping_name, null: false #配送先宛名
       t.integer :payment_method, null: false #支払い方法
-      t.integer :status, null: false #ステータス
+      t.integer :status, null: false, default: 0 #ステータス
       t.timestamps
     end
   end

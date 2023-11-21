@@ -1,16 +1,39 @@
 <%= render 'public/homes/public_layouts' %>
 
-<p>ようこそ、ながのCAKEへ！</br>
-このサイトは、ケーキ販売のECサイトになります。</br>
-会員でない方も商品の閲覧はできますが、</br>
-購入には会員登録が必要になります。</p>
+<style>
+  .welcome-message {
+    background: rgba(255, 255, 255, 0.7) url('<%= asset_path('cake_shop.jpeg') %>'); /* 画像のパスを指定してください */
+    background-position: center bottom -300px;
+    
+    background-size: cover;
+    
+    color: gray; /* テキストの色を調整する場合は指定してください */
+    text-align: center;
+    padding: 50px 20px; /* 必要に応じてパディングを調整してください */
+    line-height: 1.5;
+  }
+</style>
+
+<div class="welcome-message">
+  <h4>ようこそ、ながのCAKEへ！</br>
+  このサイトは、ケーキ販売のECサイトになります。</br>
+  会員でない方も商品の閲覧はできますが、</br>
+  購入には会員登録が必要になります。</h4>
+</div>
 
 <h2>新着商品</h2>
-<% @items.each do |item| %>
-商品名:<%= item.name %></br>
-価格：<%= item.excluding_tax %> 円</br>
-<p>-------------------------</p>
 
-<% end %>
+<div class="row">
+  <% @items.each do |item| %>
+    <div class="col-md-3">
+        <%= image_tag item.item_image, size: "100x100" %>
+      <p>商品名: <%= item.name %></p>
+      <p>価格: <%= item.excluding_tax %> 円</p>
+      <hr>
+    </div>
+  <% end %>
+</div>
 
-<%= link_to "全ての商品を見る >", items_path %>
+<div class="text-right">
+    <%= link_to "全ての商品を見る >", items_path %>
+</div>

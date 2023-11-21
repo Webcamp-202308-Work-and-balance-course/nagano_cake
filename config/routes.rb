@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :items
     resources :customers, only: [:index, :show, :edit, :update]
+    resources :ordered_products, only: [:update]
   end 
   
     # 会員側のルーティング設定
