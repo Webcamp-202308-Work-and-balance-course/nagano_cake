@@ -13,7 +13,7 @@ class Public::CustomersController < ApplicationController
         @customer = Customer.find(current_customer.id)
         @customer.update(public_params)
         #@customer.update(params[:customer])
-        redirect_to customers_mypage_path
+        redirect_to customers_mypage_path, notice: '会員情報が更新されました。'
     end
     
     def confirm

@@ -2,23 +2,48 @@
 <%= render 'public/homes/public_layouts' %>
 
 <h2>マイページ</h2>
-<h2>登録情報</h2>
-<%= link_to "編集する", custormers_information_edit_path %>
 
-<p>氏名</p>
-<%= @customer.first_name %> <%= @customer.last_name %>
-<p>カナ</p>
-<%= @customer.first_name_kana %> <%= @customer.last_name_kana %>
-<p>郵便番号</p>
-<%= @customer.postal_code %>
-<p>住所</p>
-<%= @customer.address %>
-<p>電話番号</p>
-<%= @customer.telephone_number %>
-<p>メールアドレス</p>
-<%= @customer.email %>
+<div class="d-flex align-items-center">
+  <h4 class="mr-3">登録情報</h4>
+  <%= link_to "編集する", custormers_information_edit_path, class: 'btn btn-success' %>
+</div>
 
-<h2>配送先</h2>
-<%= link_to "一覧を見る" %>
-<h2>注文履歴</h2>
-<%= link_to "一覧を見る", orders_path %>
+<div class="row">
+    <div class="col-sm-8">
+        <table class = "table">
+        
+            <tbody>
+                <tr>
+                    <th class="bg-light">氏名</th>
+                    <td><%= @customer.first_name %> <%= @customer.last_name %></td>
+                </tr>
+                <tr>
+                    <th class="bg-light">カナ</th>
+                    <td><%= @customer.first_name_kana %> <%= @customer.last_name_kana %></td>
+                </tr>
+                    <th class="bg-light">郵便番号</th>
+                    <td><%= @customer.postal_code %></td>
+                </tr>
+                <tr>
+                    <th class="bg-light">住所</th>
+                    <td><%= @customer.address %></td>
+                </tr>
+                <tr>
+                    <th class="bg-light">電話番号</th>
+                    <td><%= @customer.telephone_number %></td>
+                </tr>
+                <tr>
+                    <th class="bg-light">メールアドレス</th>
+                    <td><%= @customer.email %></td>
+                </tr>
+            </tbody>
+       
+        </table>
+    </div>
+</div>
+<!--<h2>配送先</h2>-->
+<!--%= link_to "一覧を見る", class: 'btn btn-primary' %-->
+<div class="d-flex align-items-center">
+  <h4 class="mr-3">注文履歴</h4>
+  <%= link_to "一覧を見る", orders_path, class: 'btn btn-primary' %>
+</div>

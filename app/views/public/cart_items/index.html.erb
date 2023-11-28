@@ -6,43 +6,45 @@
 <h2>ショッピングカート</h2>
 <%= notice %>
 <%= link_to 'カートを空にする', cart_items_destroy_all_path, method: :delete, data: {confirm: '本当にカートを空にしますか？'}, class: 'btn btn-danger' %>
-<%= link_to "買い物を続ける", items_path %>
-<%= link_to "情報入力に進む", new_order_path, class: 'btn btn-primary' %>
+<%= link_to "買い物を続ける", root_path %>
+
 <% if @cart_items.present? %>
-<% @cart_items.each do |item| %>
-
-    <p>商品名</p>
-    <%= link_to item.item.name, item_path(item.item.id) %>
-
-    <p>単価</p>
-    <%= number_with_delimiter(item.item.excluding_tax) %>円
-    <!--<p>ジャンル</p>-->
-    <p>数量</p>
-    <%= form_for item do |f| %>
-        <%= f.select :amount, (1..10).to_a, { prompt: "個数を選択してください" } %>個
-        <%= f.submit "変更", class: "btn btn-success" %>
-    <% end %>
-    <p>小計</p>
-    <% subtotal = item.item.excluding_tax * item.amount %>
-    <%= number_with_delimiter(subtotal) %>円
-    <p>小計（税込）</p>
-    <% subtotal_with_tax = (subtotal * 1.08).floor %>
-    <%= number_with_delimiter(subtotal_with_tax) %>円
-        
-    <!--<p>販売ステータス</p>-->
-     
-    <%= link_to "削除", cart_item_path(item.id), method: :delete, data: {confirm: '本当に削除しますか？'}, class: 'btn btn-danger' %>
-   
-
-    <p>----------------------------------------------</p>
-    <!-- 左辺の変数に右辺の値を加えて、その結果を左辺の変数に再代入 -->
-    <% total_amount_with_tax += subtotal_with_tax %>    
+<%= link_to "情報入力に進む", new_order_path, class: 'btn btn-primary' %>
+    <% @cart_items.each do |item| %>
     
-<% end %>
-
-<p>税込み合計金額</p>
-<%= number_with_delimiter(total_amount_with_tax) %>円
-
+        <p>商品名</p>
+        <%= link_to item.item.name, item_path(item.item.id) %>
+    
+        <p>単価</p>
+        <%= number_with_delimiter(item.item.excluding_tax) %>円
+        <!--<p>ジャンル</p>-->
+        <p>数量</p>
+        <%= form_for item do |f| %>
+            <%= f.select :amount, (1..10).to_a, { prompt: "個数を選択してください" } %>個
+            <%= f.submit "変更", class: "btn btn-success" %>
+        <% end %>
+        <p>小計</p>
+        <% subtotal = item.item.excluding_tax * item.amount %>
+        <%= number_with_delimiter(subtotal) %>円
+        <p>小計（税込）</p>
+        <% subtotal_with_tax = (subtotal * 1.08).floor %>
+        <%= number_with_delimiter(subtotal_with_tax) %>円
+            
+        <!--<p>販売ステータス</p>-->
+         
+        <%= link_to "削除", cart_item_path(item.id), method: :delete, data: {confirm: '本当に削除しますか？'}, class: 'btn btn-danger' %>
+       
+    
+        <p>----------------------------------------------</p>
+        <!-- 左辺の変数に右辺の値を加えて、その結果を左辺の変数に再代入 -->
+        <% total_amount_with_tax += subtotal_with_tax %>    
+        
+    <% end %>
+    
+    <p>税込み合計金額</p>
+    <%= number_with_delimiter(total_amount_with_tax) %>円
+    
 <% else %>
+
   <p>カート内に商品はありません</p>
 <% end %>

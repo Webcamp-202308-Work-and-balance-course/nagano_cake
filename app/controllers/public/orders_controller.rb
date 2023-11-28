@@ -40,19 +40,22 @@ class Public::OrdersController < ApplicationController
             @order_product.order_id = @order.id
             @order_product.tax_included = cart_item.subtotal_with_tax
             @order_product.amount = cart_item.amount
+            @order_product.save!
           end
         end   
-        @order_product.save!
         
+        @cart_items.destroy_all
         redirect_to orders_thanks_path
     end 
     
     def index
         @orders = current_customer.orders
-        @order_products = OrderedProduct.all
+
     end 
     
     def show
+      @order = Order.find(params[:id])
+     
     end
     
     private

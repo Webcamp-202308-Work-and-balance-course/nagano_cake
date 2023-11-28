@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     # 会員側のルーティング設定
   scope module: :public do
     get '/' => 'homes#top'
+    root 'public/homes#top'
     get '/about' => 'homes#about'
     resources :items, only: [:index, :show]
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
