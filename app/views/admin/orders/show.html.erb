@@ -1,0 +1,64 @@
+<%= render 'admin/homes/admin_layouts' %>
+
+<h2>注文履歴詳細</h2>
+<table>
+    <tbody>
+        <tr>
+            <td><strong>購入者</strong>　<%= @order.customer.first_name %><%= @order.customer.last_name %></td>
+        </tr>
+        <tr>
+            <td><strong>注文日</strong>　<%= @order.created_at.strftime('%y/%m/%d') %></td>
+
+        </tr>
+        <tr>
+            <td><strong>配送先</strong>　〒<%= @order.shopping_postal_code %>　<%= @order.shopping_address %></td>
+        </tr>
+        <tr>
+            <td><%= @order.shopping_name %></td>
+        </tr>
+      
+        <tr>
+            <td><strong>支払方法</strong>　<%= @order.payment_method_i18n %></br></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class='row'>
+    <div class='col-6'>
+        <table class='table'>
+            <thead class='bg-light'>
+                <tr>
+                    <td>商品名</td>
+                    <td>単価(税込)</td>
+                    <td>数量</td>
+                    <td>小計</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                  total_price = 0 # 商品合計の初期化
+                  @order.ordered_products.each do |item| 
+                %>
+                <tr>
+                    <td><%= item.item.name %></td>
+                    <td><%= price = number_with_delimiter(item.tax_included) %></td>
+                    <td><%= item_amount = item.amount %></td>
+                    <td><%= number_with_delimiter(item.tax_included * item.amount) %></td>
+                <% 
+                  total_price += item.tax_included * item.amount # 小計を商品合計に加算
+                %>  
+                <% end %>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+  
+
+    <div class='col-3'>
+        <strong>商品合計</strong>　<%= number_with_delimiter(total_price) %>円</br>
+        <strong>送料</strong>　<%= number_with_delimiter(@order.postage) %>円</br>
+        <strong>請求金額合計</strong>　<%= number_with_delimiter(total_price + @order.postage) %>円</br>
+    </div>
+</div>

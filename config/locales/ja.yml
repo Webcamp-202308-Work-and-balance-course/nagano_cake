@@ -10,6 +10,10 @@ ja: # 日本語の設定を行う
         in_production: "製作中"
         preparing_to_ship: "発送準備中"
         sent: "発送済み"
+    customer:
+      is_active:
+        false: '退会'
+        true: '有効'
   activerecord:
     errors:
       messages:

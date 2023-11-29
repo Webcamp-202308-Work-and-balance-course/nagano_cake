@@ -4,18 +4,26 @@
 
 <h2>商品新規登録</h2>
 <%= form_with model: @item, url: admin_items_path do |f| %>
-
-    <p>商品画像</p><!-- accept: "image/*"は画像ファイルしか投稿できないようにしている -->
-    <%= f.file_field :item_image, accept: "image/*" %>
-    <p>商品名</p>
-    <%= f.text_field :name %>
-    <p>商品説明</p>
-    <%= f.text_area :introduction %>
+<table>
+    <tr>
+        <td>商品画像</td><!-- accept: "image/*"は画像ファイルしか投稿できないようにしている -->
+        <td><%= f.file_field :item_image, accept: "image/*" %></td>
+    </tr>
+    <tr>
+        <td>商品名</td>　
+        <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+        <td>商品説明</td>
+        <td><%= f.text_area :introduction %></td>
+    </tr>
     <!--<p>ジャンル</p>-->
-    <p>税抜価格</p>
-    <%= f.text_field :excluding_tax %>
-    <p>販売ステータス</p>
-    <%= f.text_field :is_sales_status %>
-    
-    <%= f.submit "新規登録" %>
+    <tr>
+        <td>税抜価格</td>
+        <td><%= f.text_field :excluding_tax %>円</td>
+    </tr>
+    <p><!--販売ステータス--></p>
+    <!--%= f.text_field :is_sales_status %-->
+</table>    
+    <%= f.submit "新規登録", class: 'btn btn-success' %>
 <% end %>

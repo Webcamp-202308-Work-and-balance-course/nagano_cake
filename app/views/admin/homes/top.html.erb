@@ -12,11 +12,11 @@
     <% @orders.each do |order| %>
     <tbody>
         <tr>
-           <td><%= order.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %></td>
+           <td><%= link_to order.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S"), admin_order_path(order.id) %></td>
             <% customer = order.customer %>
             <td><%= customer.first_name %> <%= customer.last_name %></td>
             <% order.ordered_products.each do |order_product| %>
-           <td><%= order_product.item.name %></td>
+           <td><%= order_product.amount %></td>
               <% end %> 
         </tr>
 

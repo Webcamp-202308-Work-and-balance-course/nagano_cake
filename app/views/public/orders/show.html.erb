@@ -59,16 +59,15 @@
         </tr>
       </thead>
       <tbody>
-      <% @order.ordered_products.each do |ordered_product| %>
-        <tr>
-          <td><%= ordered_product.item.name %></td>
-          <td><%= number_with_delimiter(ordered_product.item.excluding_tax) %></td>
-          <td><%= ordered_product.amount %></td>
-          <td><%= number_with_delimiter(ordered_product.tax_included) %></td>
-        </tr>
+        <% @order.ordered_products.each do |ordered_product| %>
+          <tr>
+            <td><%= ordered_product.item.name %></td>
+            <td><%= number_with_delimiter((ordered_product.item.excluding_tax * 1.08).floor) %></td>
+            <td><%= ordered_product.amount %></td>
+            <td><%= number_with_delimiter((ordered_product.item.excluding_tax * 1.08).floor * ordered_product.amount) %></td>
+          </tr>
+        <% end %>
       </tbody>
-    
-    <% end %>
-    </table class="table">
+    </table>
   </div>
 </div>

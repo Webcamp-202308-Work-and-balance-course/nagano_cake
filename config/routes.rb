@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :items
     resources :customers, only: [:index, :show, :edit, :update]
     resources :ordered_products, only: [:update]
+    resources :orders , only: [:show]
   end 
   
     # 会員側のルーティング設定
