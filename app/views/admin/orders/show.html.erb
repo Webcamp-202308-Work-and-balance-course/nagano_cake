@@ -42,11 +42,11 @@
                 %>
                 <tr>
                     <td><%= item.item.name %></td>
-                    <td><%= price = number_with_delimiter(item.tax_included) %></td>
+                    <td><%= price = number_with_delimiter((item.item.excluding_tax * 1.08).floor) %></td>
                     <td><%= item_amount = item.amount %></td>
-                    <td><%= number_with_delimiter(item.tax_included * item.amount) %></td>
+                    <td><%= number_with_delimiter((item.item.excluding_tax * 1.08).floor * item.amount) %></td>
                 <% 
-                  total_price += item.tax_included * item.amount # 小計を商品合計に加算
+                  total_price += (item.item.excluding_tax * 1.08).floor * item.amount # 小計を商品合計に加算
                 %>  
                 <% end %>
                 </tr>

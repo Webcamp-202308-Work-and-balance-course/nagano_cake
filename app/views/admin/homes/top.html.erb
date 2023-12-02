@@ -1,5 +1,11 @@
 <%= render 'admin/homes/admin_layouts' %>
 
+<% if flash[:notice] %>
+  <div class="alert alert-success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <h2>注文履歴一覧</h2>
 <table class='table'>
     <thead>
@@ -15,9 +21,14 @@
            <td><%= link_to order.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S"), admin_order_path(order.id) %></td>
             <% customer = order.customer %>
             <td><%= customer.first_name %> <%= customer.last_name %></td>
+           <% total_amount = 0 %>
             <% order.ordered_products.each do |order_product| %>
-           <td><%= order_product.amount %></td>
-              <% end %> 
+              <% order_product.amount %>
+              <% total_amount += order_product.amount %>
+            <% end %>
+            <td><%= total_amount %></td>
+
+               
         </tr>
 
   </tbody>

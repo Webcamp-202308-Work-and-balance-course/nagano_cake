@@ -1,31 +1,37 @@
 <!-- 顧客側商品詳細 -->
 <%= render 'public/homes/public_layouts' %>
-<h1>👪</h1>
 
 <h2>商品詳細</h2>
 
-    <p>商品画像</p><!-- accept: "image/*"は画像ファイルしか投稿できないようにしている -->
-    <% if @item.item_image.attached? %>
-        <%= image_tag @item.item_image, size: "100x100" %>
-    <% else %>
-        <%= image_tag 'no_image_square', size: "100x100" %>
-    <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- 商品画像 -->
+      <% if @item.item_image.attached? %>
+        <%= image_tag @item.item_image, size: "500x500", class: "img-fluid" %>
+      <% else %>
+        <%= image_tag 'no_image_square', size: "500x500", class: "img-fluid" %>
+      <% end %>
+    </div>
 
-    <p>商品名</p>
-    <p><%= @item.name %></p>
-    <p>商品説明</p>
-    <%= @item.introduction %>
-    <!--<p>ジャンル</p>-->
-    <p>税抜価格</p>
-    <%= @item.excluding_tax %>
-    
-    <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
-      注文個数
-      <%= f.select :amount, (1..10).to_a, prompt: "個数を選択してください" %>個
-      <%= f.hidden_field :item_id, :value => @item.id %>
-      </br><%= f.submit "カートに入れる" %>
-    <% end %>
-    
+    <div class="col-md-6">
+      <!-- 商品情報 -->
+      <h4><%= @item.name %></h4>
+      <%= @item.introduction %></br>
+      <!-- 価格 -->
+      ¥<%= number_with_delimiter((@item.excluding_tax * 1.08).floor) %>(税込)
+
+      <!-- 注文フォーム -->
+      <%= form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+        注文個数
+        <%= f.select :amount, (1..10).to_a, prompt: "個数を選択してください" %>個
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        </br><%= f.submit "カートに入れる", class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
    
 
     

@@ -32,7 +32,7 @@
           <% @order.ordered_products.each do |ordered_product| %>
           <% product_total += ordered_product.tax_included %>
           <% end %>
-        <td><%= number_with_delimiter(product_total) %></td>
+        <td><%= number_with_delimiter(@order.billing_amount - @order.postage) %></td>
       </tr>
       <tr>
         <td class="bg-light">配送料</td>
