@@ -1,5 +1,11 @@
 <%= render 'public/homes/public_layouts' %>
 
+<% if flash[:notice] %>
+  <div class="alert alert-success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <style>
   .welcome-message {
     background: rgba(255, 255, 255, 0.7) url('<%= asset_path('cake_shop.jpeg') %>'); /* 画像のパスを指定してください */
@@ -7,7 +13,8 @@
     
     background-size: cover;
     
-    color: gray; /* テキストの色を調整する場合は指定してください */
+    color: #8B4513; /* テキストの色を調整する場合は指定してください */
+    font-family: 'Meiryo';
     text-align: center;
     padding: 50px 20px; /* 必要に応じてパディングを調整してください */
     line-height: 1.5;
@@ -25,13 +32,24 @@
 
 <div class="row">
   <% @items.each do |item| %>
-    <div class="col-md-3">
+  <div class="col-md-3">
+    <% if item.item_image.present? %>
+      <%= link_to item_path(item.id) do %>
         <%= image_tag item.item_image, size: "100x100" %>
-      <p>商品名: <%= item.name %></p>
-      <p>価格: <%= item.excluding_tax %> 円</p>
-      <hr>
-    </div>
-  <% end %>
+      <% end %>
+    <% else %>
+      <%= link_to item_path(item.id) do %>
+        <%= image_tag "/Rails/applied_learning/temporary_environment/nagano_cake/app/assets/images/no_image_square.jpg", size: "100x100" %>
+      <% end %>
+      <!-- item_imageがnilの場合、デフォルトの画像パスまたはプレースホルダー画像を表示 -->
+    <% end %>
+
+
+    <p>商品名: <%= item.name %></p>
+    <p>価格: <%= item.excluding_tax %> 円</p>
+    <hr>
+  </div>
+<% end %>
 </div>
 
 <div class="text-right">

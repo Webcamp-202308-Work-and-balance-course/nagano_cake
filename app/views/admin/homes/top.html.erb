@@ -1,1 +1,36 @@
 <%= render 'admin/homes/admin_layouts' %>
+
+<% if flash[:notice] %>
+  <div class="alert alert-success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<h2>注文履歴一覧</h2>
+<table class='table'>
+    <thead>
+        <tr class="bg-light">
+            <td>購入日時</td>
+            <td>購入者</td>
+            <td>注文個数</td>
+        </tr>
+    </thead>
+    <% @orders.each do |order| %>
+    <tbody>
+        <tr>
+           <td><%= link_to order.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S"), admin_order_path(order.id) %></td>
+            <% customer = order.customer %>
+            <td><%= customer.first_name %> <%= customer.last_name %></td>
+           <% total_amount = 0 %>
+            <% order.ordered_products.each do |order_product| %>
+              <% order_product.amount %>
+              <% total_amount += order_product.amount %>
+            <% end %>
+            <td><%= total_amount %></td>
+
+               
+        </tr>
+
+  </tbody>
+  <% end %>
+</table>

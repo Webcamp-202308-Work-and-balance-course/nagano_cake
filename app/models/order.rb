@@ -3,7 +3,7 @@ class Order < ApplicationRecord
     enum address_method: { mine: 0, other: 1 } #お届け先住所
     
     belongs_to :customer
-    has_many :order_items
+    has_many :ordered_products
     
     enum status: {
      waiting_payment: 0, #入金待ち

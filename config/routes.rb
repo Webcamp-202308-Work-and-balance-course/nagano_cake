@@ -28,11 +28,13 @@ Rails.application.routes.draw do
     resources :items
     resources :customers, only: [:index, :show, :edit, :update]
     resources :ordered_products, only: [:update]
+    resources :orders , only: [:show]
   end 
   
     # 会員側のルーティング設定
   scope module: :public do
     get '/' => 'homes#top'
+    root 'public/homes#top'
     get '/about' => 'homes#about'
     resources :items, only: [:index, :show]
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all'

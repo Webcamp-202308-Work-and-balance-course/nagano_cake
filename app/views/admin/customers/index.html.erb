@@ -1,14 +1,30 @@
 <!-- 会員一覧画面 -->
 <%= render 'admin/homes/admin_layouts' %>
-<h1>👤</h1>
 
 <h2>会員一覧</h2>
-<% @customers.each do |customer| %>
-  <div>
-    <p>会員ID：<%= customer.id %></p>
-    <p>氏名：<%= link_to "#{customer.first_name} #{customer.last_name}", admin_customer_path(customer) %></p>
-    <p>メールアドレス：<%= customer.email %></p>
-    <p>ステータス：<%= customer.is_active %></p>
+<div class='row'>
+  <div class='col-6'>
+    <table class='table'>
+      <thead class="bg-light">
+        <tr>
+          <td>会員ID</td>
+          <td>氏名</td>
+          <td>メールアドレス</td>
+          <td>ステータス</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% @customers.each do |customer| %>
+        <tr>
+          <td><%= customer.id %></td>
+          <td><%= link_to "#{customer.first_name} #{customer.last_name}", admin_customer_path(customer) %></td>
+          <td><%= customer.email %></td>
+          <td class="<%= customer.is_active ? 'text-success' : 'text-muted' %>">
+            <%= customer.is_active ? '有効' : '退会' %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
-<% end %>
-
+</div>

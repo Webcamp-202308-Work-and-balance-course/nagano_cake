@@ -1,6 +1,6 @@
 <!-- 注文情報確認 -->
 <%= render 'public/homes/public_layouts' %>
-<h1>👪</h1>
+
 <h2>注文情報確認</h2>
 <%= form_with model: @order, url: orders_path, method: :post do |f| %>
   <table>
@@ -14,9 +14,9 @@
       <% @cart_items.each do |cart_item| %>
         <tr>
           <td>　<%= cart_item.item.name %>　</td>
-          <td>　<%= number_with_delimiter(cart_item.item.excluding_tax) %>　</td>
+          <td>　<%= number_with_delimiter((cart_item.item.excluding_tax * 1.08).floor) %>　</td>
           <td>　<%= cart_item.amount %>　</td>
-          <td>　<% subtotal = cart_item.item.excluding_tax * cart_item.amount %>
+          <td>　<% subtotal = (cart_item.item.excluding_tax * 1.08).floor * cart_item.amount %>
           <%= number_with_delimiter(subtotal) %>　</td>
         </tr>
       <% end %>
@@ -47,7 +47,7 @@
   <table>
     <tr>
       <th>支払方法</th>
-      <td><%= f.object.payment_method %></td>
+      <td><%= f.object.payment_method_i18n %></td>
     </tr>
     <tr>
       <th>お届け先</th>
